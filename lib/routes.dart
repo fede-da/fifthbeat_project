@@ -1,3 +1,4 @@
+import 'package:fifthbeat_project/first_access_page.dart';
 import 'package:flutter/material.dart';
 
 import 'views/home.dart';
@@ -24,6 +25,10 @@ class AppRouter {
       case '/register':
         return MaterialPageRoute(
           builder: (_) => RegistrationPage(),
+        );
+      case '/firstAccess':
+        return MaterialPageRoute(
+          builder: (_) => FirstAccessPage(),
         );
       default:
         return MaterialPageRoute(

@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                     .read<AuthenticationBloc>()
                     .add(AuthenticationLogoutRequested());
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                    "/", (Route<dynamic> route) => false);
+                    "/login", (Route<dynamic> route) => false);
               },
             ),
           ],

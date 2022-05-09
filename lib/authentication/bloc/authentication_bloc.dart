@@ -11,7 +11,7 @@ part 'authentication_event.dart';
 part 'authentication_state.dart';
 
 class AuthenticationBloc
-    extends HydratedBloc<AuthenticationEvent, AuthenticationState> {
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository;
   late StreamSubscription<AuthenticationStatus>
@@ -20,9 +20,10 @@ class AuthenticationBloc
   AuthenticationBloc({
     required AuthenticationRepository authenticationRepository,
     required UserRepository userRepository,
+    required bool isFirstAccess,
   })  : _authenticationRepository = authenticationRepository,
         _userRepository = userRepository,
-        super(const AuthenticationState.unauthenticated()) {
+        super(const AuthenticationState.firstAccess()) {
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequested>(_onAuthenticationLogoutRequested);
     on<AuthenticationStateInit>(_onAuthenticationStateInit);
@@ -30,10 +31,13 @@ class AuthenticationBloc
       (status) => add(AuthenticationStatusChanged(status)),
     );
     if (state.status == AuthenticationStatus.authenticated) {
-      _authenticationRepository.authenticate();
+      add(AuthenticationStatusChanged(AuthenticationStatus.authenticated));
+      return;
+    } else if (state.status == AuthenticationStatus.firstAccess) {
+      add(AuthenticationStatusChanged(AuthenticationStatus.firstAccess));
       return;
     } else {
-      _authenticationRepository.unauthenticate();
+      add(AuthenticationStatusChanged(AuthenticationStatus.unauthenticated));
       return;
     }
   }
@@ -59,18 +63,7 @@ class AuthenticationBloc
 
   Future<User> login(
       {required String username, required String password}) async {
-    try {
-      User? user = await _authenticationRepository.logIn(
-          username: username, password: password);
-      if (user != null) {
-        _userRepository.setUser(user);
-        return user;
-      }
-      throw Exception("User null after attempted login");
-    } catch (e) {
-      print(e);
-      return User.empty;
-    }
+    return User.empty;
   }
 
   @override
@@ -100,6 +93,8 @@ class AuthenticationBloc
         return emit(user != null
             ? AuthenticationState.authenticated(user)
             : const AuthenticationState.unauthenticated());
+      case AuthenticationStatus.firstAccess:
+        return emit(const AuthenticationState.firstAccess());
       default:
         return emit(const AuthenticationState.unknown());
     }

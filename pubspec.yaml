@@ -21,8 +21,7 @@ dependencies:
   hydrated_bloc: ^8.1.0
   path_provider: ^2.0.9
   convert: ^3.0.1
-  assets: 
-    - assets/images/
+    
 
 
 dev_dependencies:
@@ -30,3 +29,7 @@ dev_dependencies:
     sdk: flutter
   bloc_test: ^9.0.2
   mocktail: ^0.2.0
+
+flutter:
+  assets:
+    - assets/images/

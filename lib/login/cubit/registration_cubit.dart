@@ -47,14 +47,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   void submit() async {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      User? user = await authBloc.register(
-        name: state.name.value,
-        username: state.username.value,
-        password: state.password.value,
-      );
-      if (user.token == "token") {
-        return emit(state.copyWith(status: FormzStatus.submissionFailure));
-      }
+      await Future.delayed(Duration(seconds: 1));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
       return authBloc
           .add(AuthenticationStatusChanged(AuthenticationStatus.authenticated));

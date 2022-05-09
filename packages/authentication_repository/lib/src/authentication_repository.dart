@@ -10,6 +10,7 @@ enum AuthenticationStatus {
   unknown,
   authenticated,
   unauthenticated,
+  firstAccess,
 }
 
 class AuthenticationRepository {

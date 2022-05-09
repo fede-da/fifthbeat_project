@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         create: (_) => AuthenticationBloc(
           authenticationRepository: authenticationRepository,
           userRepository: userRepository,
+          isFirstAccess: true,
         ),
         child: AppView(),
       ),

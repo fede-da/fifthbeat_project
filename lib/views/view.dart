@@ -24,6 +24,9 @@ class AuthBlocListener extends StatelessWidget {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (newContext, state) {
         switch (state.status) {
+          case AuthenticationStatus.firstAccess:
+            Navigator.of(context).pushNamed("/firstAccess");
+            break;
           case AuthenticationStatus.authenticated:
             Navigator.of(context).pushNamed("/home");
             break;
@@ -31,6 +34,7 @@ class AuthBlocListener extends StatelessWidget {
             Navigator.of(context).pushNamed("/login");
             break;
           default:
+            Navigator.of(context).pushNamed("/login");
             break;
         }
       },

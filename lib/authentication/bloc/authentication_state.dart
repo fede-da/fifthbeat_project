@@ -5,10 +5,12 @@ part of 'authentication_bloc.dart';
 class AuthenticationState extends Equatable {
   final AuthenticationStatus status;
   final User user;
+  final bool isFirstAccess;
 
   const AuthenticationState._({
     this.status = AuthenticationStatus.unknown,
     this.user = User.empty,
+    this.isFirstAccess = true,
   });
 
   const AuthenticationState.unknown() : this._();
@@ -19,17 +21,19 @@ class AuthenticationState extends Equatable {
   const AuthenticationState.unauthenticated()
       : this._(status: AuthenticationStatus.unauthenticated);
 
-  AuthenticationState(this.status, this.user);
+  const AuthenticationState.firstAccess()
+      : this._(status: AuthenticationStatus.firstAccess);
+
+  AuthenticationState(this.status, this.user, this.isFirstAccess);
 
   @override
   List<Object> get props => [status, user];
 
   Map<String, dynamic> toMap() {
-    String stringToSave = status.toString();
-
     return <String, dynamic>{
       'status': status.toString().substring(21, status.toString().length),
       'user': user.toMap(),
+      'isFirstAccess': isFirstAccess
     };
   }
 
@@ -37,6 +41,7 @@ class AuthenticationState extends Equatable {
     return AuthenticationState(
       (AuthenticationStatus.values.byName(map['status'])),
       User.fromMap(map['user']),
+      map['isFirstAccess'] as bool,
     );
   }
 
@@ -46,6 +51,11 @@ class AuthenticationState extends Equatable {
       AuthenticationState.fromMap(json.decode(source) as Map<String, dynamic>);
   @override
   String toString() {
-    return "Printing status : " + status.toString() + " " + user.toString();
+    return "Printing status : " +
+        status.toString() +
+        " " +
+        user.toString() +
+        " already accessed : " +
+        isFirstAccess.toString();
   }
 }

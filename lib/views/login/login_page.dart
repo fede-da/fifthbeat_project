@@ -12,22 +12,24 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/login.png"),
-          fit: BoxFit.cover,
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/login.png"),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: BlocProvider(
-          create: (context) {
-            return LoginCubit(
-              authBloc: BlocProvider.of<AuthenticationBloc>(context),
-            );
-          },
-          child: LoginForm(),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: BlocProvider(
+            create: (context) {
+              return LoginCubit(
+                authBloc: BlocProvider.of<AuthenticationBloc>(context),
+              );
+            },
+            child: LoginForm(),
+          ),
         ),
       ),
     );
