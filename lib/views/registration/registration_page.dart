@@ -11,7 +11,7 @@ class RegistrationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.fromLTRB(10, 60, 10, 0),
         child: BlocProvider(
           create: (context) {
             return RegistrationCubit(

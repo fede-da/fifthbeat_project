@@ -1,7 +1,4 @@
-import 'package:authentication_repository/authentication_repository.dart';
-import 'package:fifthbeat_project/authentication/bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FirstAccessPage extends StatefulWidget {
   FirstAccessPage({Key? key}) : super(key: key);
@@ -19,9 +16,7 @@ class _FirstAccessPageState extends State<FirstAccessPage> {
   Widget build(BuildContext context) {
     final double _width = MediaQuery.of(context).size.width * 0.8;
     void _changeStatusAndGoToLogin() {
-      BlocProvider.of<AuthenticationBloc>(context).add(
-          AuthenticationStatusChanged(AuthenticationStatus.unauthenticated));
-      // Navigator.pushNamed(context, "/login");
+      Navigator.pushNamed(context, "/permessi");
       return;
     }
 
@@ -70,25 +65,3 @@ class _FirstAccessPageState extends State<FirstAccessPage> {
     );
   }
 }
-
-// class _pageToShow extends StatelessWidget {
-//   final String asset;
-
-//   const _pageToShow({Key? key, required this.asset}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Container(
-//           decoration: BoxDecoration(
-//             image: DecorationImage(
-//               image: AssetImage(asset),
-//               fit: BoxFit.cover,
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }

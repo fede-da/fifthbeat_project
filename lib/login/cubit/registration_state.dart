@@ -4,27 +4,31 @@ class RegistrationState extends Equatable {
   const RegistrationState(
       {this.status = FormzStatus.pure,
       this.username = const Username.pure(),
-      this.password = const Password.pure(),
-      this.name = const Name.pure()});
+      this.name = const Name.pure(),
+      this.surname = const Surname.pure(),
+      this.phoneNumber = const PhoneNumber.pure()});
 
   final FormzStatus status;
   final Username username;
-  final Password password;
   final Name name;
+  final Surname surname;
+  final PhoneNumber phoneNumber;
 
   RegistrationState copyWith({
     FormzStatus? status,
     Username? username,
-    Password? password,
     Name? name,
+    Surname? surname,
+    PhoneNumber? phoneNumber,
   }) {
     return RegistrationState(
         status: status ?? this.status,
         username: username ?? this.username,
-        password: password ?? this.password,
-        name: name ?? this.name);
+        name: name ?? this.name,
+        surname: surname ?? this.surname,
+        phoneNumber: phoneNumber ?? this.phoneNumber);
   }
 
   @override
-  List<Object> get props => [status, username, password, name];
+  List<Object> get props => [status, username, name, surname, phoneNumber];
 }

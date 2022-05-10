@@ -1,8 +1,8 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fifthbeat_project/views/registration/models/models.dart';
 import 'package:formz/formz.dart';
-import 'package:models/models.dart';
 
 import '../../authentication/bloc/authentication_bloc.dart';
 import '../models/name.dart';
@@ -22,7 +22,8 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   ) {
     emit(state.copyWith(
       username: username,
-      status: Formz.validate([state.password, username, state.name]),
+      status: Formz.validate(
+          [username, state.name, state.surname, state.phoneNumber]),
     ));
   }
 
@@ -31,16 +32,28 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   ) {
     emit(state.copyWith(
       name: name,
-      status: Formz.validate([state.password, state.username, name]),
+      status: Formz.validate(
+          [state.username, name, state.surname, state.phoneNumber]),
     ));
   }
 
-  void changePassword(
-    Password password,
+  void changeSurname(
+    Surname surname,
   ) {
     emit(state.copyWith(
-      password: password,
-      status: Formz.validate([password, state.username, state.name]),
+      surname: surname,
+      status: Formz.validate(
+          [state.username, state.name, surname, state.phoneNumber]),
+    ));
+  }
+
+  void changePhoneNumber(
+    PhoneNumber phoneNumber,
+  ) {
+    emit(state.copyWith(
+      phoneNumber: phoneNumber,
+      status: Formz.validate(
+          [state.username, state.name, state.surname, phoneNumber]),
     ));
   }
 
