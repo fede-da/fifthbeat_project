@@ -72,7 +72,7 @@ class _PermessiState extends State<Permessi> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 TextButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => null,
                   child: Text(
                     "Annulla",
                     style: TextStyle(fontSize: 18),
